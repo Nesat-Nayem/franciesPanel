@@ -34,19 +34,53 @@ const navigationConfig = [
         icon: "file_copy",
         children: [
           {
-            id: "Workspace",
-            title: "Workspace",
-            type: "item",
-            url: "/pages/movers",
-            exact: true,
+            id: "Mover",
+            title: "Movers",
+            type: "collapse",
+            icon: "account_balance_wallet_icon",
+            children: [
+              {
+                id: "HomeRelocation",
+                title: "Home Relocation",
+                type: "item",
+                url: "/pages/homeRelocation",
+                exact: true,
+              },
+              {
+                id: "OfficeRelocation",
+                title: "Office Relocation",
+                type: "item",
+                url: "/pages/officeRelocation",
+                exact: true,
+              },
+
+            ],
+
+
           },
 
           {
             id: "Storage",
             title: "Storage",
-            type: "item",
-            url: "/pages/storage",
-            exact: true,
+            type: "collapse",
+            icon: "auto_awesome_motion_icon",
+            children: [
+              {
+                id: "ResidentialStorage",
+                title: "Residential Storage",
+                type: "item",
+                url: "/pages/residentialStorage",
+                exact: true,
+              },
+              {
+                id: "CommercialStorage",
+                title: "Commercial Storage",
+                type: "item",
+                url: "/pages/commercialStorage",
+                exact: true,
+              },
+
+            ],
           },
           {
             id: "Courier",

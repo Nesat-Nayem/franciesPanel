@@ -131,15 +131,15 @@ const OftadehAvatarMenu = (props) => {
                     </Link>
                   </MenuItem>
 
-                  <MenuItem onClick={() => history.push("/pages/auth/login")}>
+                  <MenuItem onClick={() => history.push("/")}>
                     <ListItemIcon className={classes.menuIcon}>
                       <ExitToApp fontSize="small" />
                     </ListItemIcon>
                     <Link
-                      to="/pages/auth/login"
+                      to="/"
                       style={{ listStyle: "none", textDecoration: "none" }}
                     >
-                      {" "}
+                    
                       Logout
                     </Link>
                   </MenuItem>

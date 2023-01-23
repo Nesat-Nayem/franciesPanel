@@ -7,6 +7,10 @@ import { AddCustomerPageConfig } from "../pages/posts/add-customer/AddCustomerPa
 import { CustomerPageConfig } from "../pages/customers/CustomerPageConfig";
 import { AllMoversPageConfig } from "../pages/posts/movers/AllMoversPageConfig";
 import { AllCourierPageConfig } from "../pages/posts/courier/AllCourierPageConfig";
+import { HomeRelocationConfig } from "../pages/posts/homeRelocation/HomeRelocationConfig";
+import { OfficeRelocationConfig } from "../pages/posts/officeRelocation/OfficeRelocationConfig";
+import { ResidentialStorageConfig } from "../pages/posts/residentialStorage/ResidentialStorageConfig";
+import { CommercialStorageConfig } from "../pages/posts/commercialStorage/CommercialStorageConfig";
 import { AllVehiclePageConfig } from "../pages/posts/vehicle/AllVehiclePageConfig";
 import { AllCategoryPageConfig } from "../pages/posts/category/AllCategoryPageConfig";
 import { AllStoragePageConfig } from "../pages/posts/storage/AllStoragePageConfig";
@@ -38,6 +42,10 @@ const routeConfigs = [
   ...AddCustomerPageConfig.routes,
   ...AllMoversPageConfig.routes,
   ...AllCourierPageConfig.routes,
+  ...HomeRelocationConfig.routes,
+  ...OfficeRelocationConfig.routes,
+  ...ResidentialStorageConfig.routes,
+  ...CommercialStorageConfig.routes,
   ...AllVehiclePageConfig.routes,
   ...AllCategoryPageConfig.routes,
   ...AllStoragePageConfig.routes,

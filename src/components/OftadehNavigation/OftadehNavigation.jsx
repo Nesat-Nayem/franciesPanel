@@ -12,57 +12,41 @@ import OftadehNavLink from "./sections/OftadehNavLink";
 import { Typography } from "@material-ui/core";
 import clsx from "clsx";
 
-
 const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
-  mainContainer:{
-
-    "& .MuiDrawer-paper":{
-      overflowY: "visible !important",
-      position: "absolute !important",
-      background: "white !important"
-     }
-
-  },
   logoBg: {
-    backgroundColor: theme.palette.type !== "dark" && "white",
+    backgroundColor: theme.palette.type !== "dark" && "#18202c",
+    // backgroundColor: "#18202c"
   },
   logo: {
     padding: "1rem",
-    color:"black !important",
     "& span": {
       display: "block",
       color: "rgba(41, 113, 245, 0.87)",
     },
-   
   },
   navCustom: {
-    backgroundColor:"white",
     "& .MuiTypography-root": {
       fontSize: ".85rem",
-      color:"black !Important"
     },
     "& .MuiListItemIcon-root": {
       minWidth: "35px",
-      color:"black !Important"
     },
     "& .MuiCollapse-wrapperInner a": {
       paddingLeft: "50px",
-      color:"black !Important"
     },
-
- "& .MuiDrawer-paper":{
-  overflowY: "none !important",
-  position: "none !important",
-  background: "none !important"
- }
- 
-
   },
-
-
-
 }));
+
+
+//  "& .MuiDrawer-paper":{
+//   overflowY: "none !important",
+//   position: "none !important",
+//   background: "none !important"
+//  }
+
+
+// }));
 const OftadehNavigation = (props) => {
   const classes = useStyles(props);
 

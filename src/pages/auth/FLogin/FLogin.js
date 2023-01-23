@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-// import { redirect } from "react-router-dom";
+// import { Redirect } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import './FLogin.css'
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -13,25 +14,38 @@ const FLogin = () => {
   // const formRef = React.createRef();
 
   // const location = useLocation();
-
+  const history = useHistory();
   const inactiveaccess = () => {
-    Swal.fire(
-      "Oops...",
-      "Your access is pending at this time. Please contract with admin",
-      "error"
-    );
+    // Swal.fire(
+    //   "Oops...",
+    //   "Your access is pending at this time. Please contract with admin",
+    //   "error"
+    // );
+    Swal.fire({
+      title: 'Account Pending!',
+      text: "Please Contract Here: support@trans23.net",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Got It!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+console.log("done")
+      }
+    })
     // console.log('log out clicked')
     // dispatch(signOut());
   };
 
   const activeAccess = () => {
-    // const options = { position: "bottom-center" };
-    // cogoToast.success("Signin successfull", options);
-    Swal.fire(
-      "Done",
-      "please enter dashbord",
-      "success"
-    );
+    history.push("/dashboard")
+    // return <Redirect to='/dashboard'/>
+    // Swal.fire(
+    //   "Done",
+    //   "please enter dashbord",
+    //   "success"
+    // );
   };
 
   const handleSubmit = event => {
