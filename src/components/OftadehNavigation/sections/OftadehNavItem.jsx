@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const OftadehNavItem = (props) => {
+  // console.log("nav item", props);
   const classes = useStyles();
   const { item } = props;
 

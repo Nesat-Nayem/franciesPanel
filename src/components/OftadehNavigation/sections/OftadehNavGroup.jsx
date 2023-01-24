@@ -8,6 +8,9 @@ import { ListSubheader } from "@material-ui/core";
 const OftadehNavGroup = props => {
   const { item } = props;
 
+  // const filteredChildren = item.children.filter(child => child.children.id === "mover");
+
+// console.log("chack item from props test",props);
   return (
     <>
       <ListSubheader>{item.title}</ListSubheader>

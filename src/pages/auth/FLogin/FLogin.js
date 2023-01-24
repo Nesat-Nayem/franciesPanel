@@ -38,8 +38,9 @@ console.log("done")
     // dispatch(signOut());
   };
 
-  const activeAccess = () => {
-    history.push("/dashboard")
+  const activeAccess = (service) => {
+    console.log(service)
+    // history.push("/dashboard")
     // return <Redirect to='/dashboard'/>
     // Swal.fire(
     //   "Done",
@@ -58,13 +59,13 @@ console.log("done")
     .post("http://localhost:7070/api/franciesSingIn", data)
     .then((response) => {
       // dispatch(signin(response.data));
-      console.log(response.data.status);
+      // console.log(response.data.service)
       {
         response.data.status === "InActive"
           ? // console.log('he is not active')
 
             inactiveaccess()
-          : activeAccess();
+          : activeAccess(response.data.service);
       }
       // navigate("/dashboard");
       // redirect("/dashboard")

@@ -38,6 +38,23 @@ const useStyles = makeStyles((theme) => ({
 
 
 const persistCollapseOpen = (location, item) => {
+
+// console.log("check is data came any spacic", item)
+
+const filteredChildren = item.children.filter(child => child.id === "mover");
+console.log("first child object:", filteredChildren[0]);
+
+
+// filter out 
+
+//   const filteredChildren = item.children.filter(child => child.id === "mover");
+
+// console.log("chack item from props test",filteredChildren);
+
+// filter out 
+
+
+
   return location && checkPathInChildren(item, location.pathname);
 };
 

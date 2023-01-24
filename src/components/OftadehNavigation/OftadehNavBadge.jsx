@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const OftadehNavBadge = (props) => {
+  // console.log("props form badge", props)
   const classes = useStyles(props);
   const { className, badge } = props;
 

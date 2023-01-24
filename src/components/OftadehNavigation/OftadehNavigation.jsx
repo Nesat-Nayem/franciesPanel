@@ -4,6 +4,7 @@ import List from "@material-ui/core/List";
 import { makeStyles } from "@material-ui/core/styles";
 import OftadehAvatarMenu from "../OftadehAvatarMenu/OftadehAvatarMenu";
 import navigationConfig from "../../oftadeh-configs/navigationConfig";
+import moverNav from "../../oftadeh-configs/moverNav";
 
 import OftadehNavGroup from "./sections/OftadehNavGroup";
 import OftadehNavCollapse from "./sections/OftadehNavCollapse";
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 // }));
 const OftadehNavigation = (props) => {
+  // console.log("props from navigation", props);
   const classes = useStyles(props);
 
   
@@ -80,6 +82,7 @@ const OftadehNavigation = (props) => {
       <Divider />
       <List className={classes.navCustom}>
         {navigationConfig.map((item) => (
+          // console.log("mainpoint",item),
           <React.Fragment key={item.id}>
             {item.type === "group" && <OftadehNavGroup item={item} />}
 

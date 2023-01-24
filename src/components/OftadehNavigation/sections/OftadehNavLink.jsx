@@ -3,6 +3,7 @@ import { ListItem, ListItemIcon, ListItemText, Icon } from "@material-ui/core";
 import OftadehNavBadge from "../OftadehNavBadge";
 
 const OftadehNavLink = (props) => {
+  // console.log("nav link from", props)
   const { item } = props;
   return (
     <ListItem
