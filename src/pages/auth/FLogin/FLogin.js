@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-
+// import {  useNavigate } from "react-router-dom";
 // import { Redirect } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import './FLogin.css'
 import Swal from "sweetalert2";
 import axios from "axios";
+import {  useDispatch } from 'react-redux'
+import { serviceAdd } from '../../../slice/serviceSlice';
 
 const FLogin = () => {
-
-
+  const dispatch = useDispatch()
+  // const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // const formRef = React.createRef();
@@ -39,8 +42,11 @@ console.log("done")
   };
 
   const activeAccess = (service) => {
+    dispatch(serviceAdd(service))
     console.log(service)
-    // history.push("/dashboard")
+  //  return <Navigate to="/dashboard" />
+    // navigate("/dashboard");
+    history.push("/dashboard")
     // return <Redirect to='/dashboard'/>
     // Swal.fire(
     //   "Done",
@@ -65,7 +71,7 @@ console.log("done")
           ? // console.log('he is not active')
 
             inactiveaccess()
-          : activeAccess(response.data.service);
+          : activeAccess(response.data);
       }
       // navigate("/dashboard");
       // redirect("/dashboard")

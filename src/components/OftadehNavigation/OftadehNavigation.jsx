@@ -4,6 +4,9 @@ import List from "@material-ui/core/List";
 import { makeStyles } from "@material-ui/core/styles";
 import OftadehAvatarMenu from "../OftadehAvatarMenu/OftadehAvatarMenu";
 import navigationConfig from "../../oftadeh-configs/navigationConfig";
+import storageNav from "../../oftadeh-configs/storageNav";
+import courierNav from "../../oftadeh-configs/courierNav";
+import vehicleNav from "../../oftadeh-configs/vehicleNav";
 import moverNav from "../../oftadeh-configs/moverNav";
 
 import OftadehNavGroup from "./sections/OftadehNavGroup";
@@ -12,6 +15,8 @@ import OftadehNavItem from "./sections/OftadehNavItem";
 import OftadehNavLink from "./sections/OftadehNavLink";
 import { Typography } from "@material-ui/core";
 import clsx from "clsx";
+
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
@@ -52,6 +57,10 @@ const OftadehNavigation = (props) => {
   // console.log("props from navigation", props);
   const classes = useStyles(props);
 
+  const count = useSelector((state) => state.service.serviceName)
+  console.log("rest redux", count[0]?.payload?.service)
+  // const BuyService = "all"
+  const BuyService = count[0]?.payload?.service;
   
 
   return (
@@ -80,7 +89,7 @@ const OftadehNavigation = (props) => {
         </Typography>
       </div>
       <Divider />
-      <List className={classes.navCustom}>
+      {/* <List className={classes.navCustom}>
         {navigationConfig.map((item) => (
           // console.log("mainpoint",item),
           <React.Fragment key={item.id}>
@@ -95,7 +104,79 @@ const OftadehNavigation = (props) => {
             {item.type === "divider" && <Divider className="my-16" />}
           </React.Fragment>
         ))}
-      </List>
+      </List> */}
+
+<List className={classes.navCustom}>
+    {BuyService === "all" ? navigationConfig.map((item) => (
+      <React.Fragment key={item.id}>
+        {item.type === "group" && <OftadehNavGroup item={item} />}
+
+        {item.type === "collapse" && <OftadehNavCollapse className={classes.navcollapes} item={item} />}
+
+        {item.type === "item" && <OftadehNavItem item={item} />}
+
+        {item.type === "link" && <OftadehNavLink item={item} />}
+
+        {item.type === "divider" && <Divider className="my-16" />}
+      </React.Fragment>
+    )) : (BuyService === "movers" ? moverNav.map((item) => (
+      <React.Fragment key={item.id}>
+        {item.type === "group" && <OftadehNavGroup item={item} />}
+
+        {item.type === "collapse" && <OftadehNavCollapse className={classes.navcollapes} item={item} />}
+
+        {item.type === "item" && <OftadehNavItem item={item} />}
+
+        {item.type === "link" && <OftadehNavLink item={item} />}
+
+        {item.type === "divider" && <Divider className="my-16" />}
+      </React.Fragment>
+    ))
+    
+    : (BuyService === "storage" ? storageNav.map((item) => (
+      <React.Fragment key={item.id}>
+        {item.type === "group" && <OftadehNavGroup item={item} />}
+
+        {item.type === "collapse" && <OftadehNavCollapse className={classes.navcollapes} item={item} />}
+
+        {item.type === "item" && <OftadehNavItem item={item} />}
+
+        {item.type === "link" && <OftadehNavLink item={item} />}
+
+        {item.type === "divider" && <Divider className="my-16" />}
+      </React.Fragment>
+    ))
+    
+    : (BuyService === "vehicle" ? vehicleNav.map((item) => (
+      <React.Fragment key={item.id}>
+        {item.type === "group" && <OftadehNavGroup item={item} />}
+
+        {item.type === "collapse" && <OftadehNavCollapse className={classes.navcollapes} item={item} />}
+
+        {item.type === "item" && <OftadehNavItem item={item} />}
+
+        {item.type === "link" && <OftadehNavLink item={item} />}
+
+        {item.type === "divider" && <Divider className="my-16" />}
+      </React.Fragment>
+    ))
+    : (BuyService === "courier" ? courierNav.map((item) => (
+      <React.Fragment key={item.id}>
+        {item.type === "group" && <OftadehNavGroup item={item} />}
+
+        {item.type === "collapse" && <OftadehNavCollapse className={classes.navcollapes} item={item} />}
+
+        {item.type === "item" && <OftadehNavItem item={item} />}
+
+        {item.type === "link" && <OftadehNavLink item={item} />}
+
+        {item.type === "divider" && <Divider className="my-16" />}
+      </React.Fragment>
+    ))
+    
+    
+    :<div>Variable value not match</div>))))}
+</List> 
     </div>
   );
 };
