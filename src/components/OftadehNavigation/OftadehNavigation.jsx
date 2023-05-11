@@ -2,7 +2,6 @@ import React from "react";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import { makeStyles } from "@material-ui/core/styles";
-import OftadehAvatarMenu from "../OftadehAvatarMenu/OftadehAvatarMenu";
 import navigationConfig from "../../oftadeh-configs/navigationConfig";
 import storageNav from "../../oftadeh-configs/storageNav";
 import courierNav from "../../oftadeh-configs/courierNav";
@@ -45,12 +44,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-//  "& .MuiDrawer-paper":{
-//   overflowY: "none !important",
-//   position: "none !important",
-//   background: "none !important"
-//  }
-
 
 // }));
 const OftadehNavigation = (props) => {
@@ -89,22 +82,7 @@ const OftadehNavigation = (props) => {
         </Typography>
       </div>
       <Divider />
-      {/* <List className={classes.navCustom}>
-        {navigationConfig.map((item) => (
-          // console.log("mainpoint",item),
-          <React.Fragment key={item.id}>
-            {item.type === "group" && <OftadehNavGroup item={item} />}
-
-            {item.type === "collapse" && <OftadehNavCollapse className={classes.navcollapes} item={item} />}
-
-            {item.type === "item" && <OftadehNavItem item={item} />}
-
-            {item.type === "link" && <OftadehNavLink item={item} />}
-
-            {item.type === "divider" && <Divider className="my-16" />}
-          </React.Fragment>
-        ))}
-      </List> */}
+    
 
 <List className={classes.navCustom}>
     {BuyService === "all" ? navigationConfig.map((item) => (
