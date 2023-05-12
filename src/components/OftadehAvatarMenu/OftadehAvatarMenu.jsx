@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Mod } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Avatar,
@@ -20,6 +21,9 @@ import {
 import { Link } from "react-router-dom";
 import OftadehAvatarBadge from "../OftadehAvatarBadge/OftadehAvatarBadge";
 import { AccountCircle, Settings, ExitToApp } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../store/authentication";
+// import { logout } from "../../store/authentication";
 
 const useStyles = makeStyles((theme) => ({
   inline: {
@@ -35,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const OftadehAvatarMenu = (props) => {
   const classes = useStyles(props);
-  const { history } = props;
+  // const { history } = props;
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -51,6 +55,17 @@ const OftadehAvatarMenu = (props) => {
     setOpen(false);
   };
 
+
+  const history = useHistory();
+const dispatch = useDispatch()
+
+
+  const logoutfunctioncall = () =>{
+
+    console.log("hit log out")
+    dispatch(logoutUser())
+    history.push("/");
+  } 
   return (
     <>
       <ListItem
@@ -131,17 +146,20 @@ const OftadehAvatarMenu = (props) => {
                     </Link>
                   </MenuItem>
 
-                  <MenuItem onClick={() => history.push("/")}>
+                  <MenuItem >
                     <ListItemIcon className={classes.menuIcon}>
                       <ExitToApp fontSize="small" />
                     </ListItemIcon>
-                    <Link
-                      to="/"
+                    <a
+                      // to=""
+                    onClick ={()=> logoutfunctioncall()}
                       style={{ listStyle: "none", textDecoration: "none" }}
+
+                   
                     >
                     
                       Logout
-                    </Link>
+                    </a>
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>

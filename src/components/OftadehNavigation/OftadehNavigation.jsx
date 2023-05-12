@@ -50,10 +50,11 @@ const OftadehNavigation = (props) => {
   // console.log("props from navigation", props);
   const classes = useStyles(props);
 
-  const count = useSelector((state) => state.service.serviceName)
-  console.log("rest redux", count[0]?.payload?.service)
-  // const BuyService = "all"
-  const BuyService = count[0]?.payload?.service;
+  // const service = useSelector((state) => state.service.serviceName)
+  // console.log("rest redux", service[0]?.payload?.service)
+  // // const BuyService = "all"
+  // const BuyService = service[0]?.payload?.service;
+  const BuyService = 'movers'
   
 
   return (

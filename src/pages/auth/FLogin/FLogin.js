@@ -6,24 +6,32 @@ import { useHistory } from "react-router-dom";
 import './FLogin.css'
 import Swal from "sweetalert2";
 import axios from "axios";
-import {  useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { serviceAdd } from '../../../slice/serviceSlice';
+import { postauth } from '../../../store/authentication';
+import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
 const FLogin = () => {
   const dispatch = useDispatch()
   // const navigate = useNavigate();
+  const authData = useSelector((state) => state.authentication.apiResponse) // state.authentication.authData
+  console.log("test auth data", authData )
   const [email, setEmail] = useState('');
+  // const [redirect, setRedirect] = useState(false);
+  const redirect = useSelector((state)=>state.authentication.redirect)
   const [password, setPassword] = useState('');
-  // const formRef = React.createRef();
 
-  // const location = useLocation();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
   const history = useHistory();
   const inactiveaccess = () => {
-    // Swal.fire(
-    //   "Oops...",
-    //   "Your access is pending at this time. Please contract with admin",
-    //   "error"
-    // );
+
     Swal.fire({
       title: 'Account Pending!',
       text: "Please Contract Here: support@trans23.net",
@@ -34,99 +42,111 @@ const FLogin = () => {
       confirmButtonText: 'Yes, Got It!'
     }).then((result) => {
       if (result.isConfirmed) {
-console.log("done")
+        console.log("done")
       }
     })
     // console.log('log out clicked')
     // dispatch(signOut());
   };
 
-  const activeAccess = (service) => {
-    dispatch(serviceAdd(service))
-    console.log(service)
-  //  return <Navigate to="/dashboard" />
-    // navigate("/dashboard");
+  const activeAccess = () => {
+    // dispatch(serviceAdd(service))
+    // console.log(service)
+
     history.push("/dashboard")
-    // return <Redirect to='/dashboard'/>
-    // Swal.fire(
-    //   "Done",
-    //   "please enter dashbord",
-    //   "success"
-    // );
+
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    const data = { email, password };
-    console.log(data);
-    // formRef.current.submit();
-
-    axios
-    .post("http://localhost:7070/api/franciesSingIn", data)
-    .then((response) => {
-      // dispatch(signin(response.data));
-      // console.log(response.data.service)
-      {
-        response.data.status === "InActive"
-          ? // console.log('he is not active')
-
-            inactiveaccess()
-          : activeAccess(response.data);
-      }
-      // navigate("/dashboard");
-      // redirect("/dashboard")
-    })
-    .catch((error) => {
-      const options = { position: "bottom-center" };
-      // cogoToast.error("Authentication failed", options);
-    });
-  };
+  console.log("redirect data test ", redirect)
+  if (redirect) {
+    history.push("/dashboard");
+  }
 
 
+  // const authData.status === "InActive" ?   inactiveaccess() : activeAccess() 
+
+  // { authData.status === "InActive" ? activeAccess() : inactiveaccess() }
+
+  const onSubmit = data => dispatch(postauth(data))
+
+  // const handleSubmit = event => {
+  //   event.preventDefault();
+  //   const data = { email, password };
+  //   console.log(data);
+  //   // formRef.current.submit();
 
 
-    return (
-        <div className='mainbodyd'>
-           
-<div className='mainrapercs'>
+  //   dispatch(postauth(data))
+
+  //   // axios
+  //   // .post("http://localhost:7070/api/franciesSingIn", data)
+  //   // .then((response) => {
+  //   //   // dispatch(signin(response.data));
+  //   //   // console.log(response.data.service)
+  //   //   {
+  //   //     response.data.status === "InActive"
+  //   //       ? // console.log('he is not active')
+
+  //   //         inactiveaccess()
+  //   //       : activeAccess(response.data);
+  //   //   }
+  //   //   // navigate("/dashboard");
+  //   //   // redirect("/dashboard")
+  //   // })
+  //   // .catch((error) => {
+  //   //   const options = { position: "bottom-center" };
+  //   //   // cogoToast.error("Authentication failed", options);
+  //   // });
+  // };
 
 
-           <div class="login_form_containercs">
-      <div class="login_formcs">
-        <h2 className='csh2'>Login</h2>
-        <div class="input_groupcs">
-          <i class="fa fa-user"></i>
-          <input
-            type="text"
-            placeholder="Useremail"
-            onChange={event => setEmail(event.target.value)}
-            class="input_textcs"
-            autocomplete="off"
-          />
+
+
+
+  return (
+    <div className='mainbodyd'>
+
+      <form onSubmit={handleSubmit(onSubmit)} className='mainrapercs'>
+        <div class="login_form_containercs">
+          <div class="login_formcs">
+            <h2 className='csh2'>Login</h2>
+            <div class="input_groupcs">
+              <i class="fa fa-user"></i>
+              <input
+                type="text"
+                placeholder="Useremail"
+                // onChange={event => setEmail(event.target.value)}
+                {...register("email")}
+                class="input_textcs"
+                autocomplete="off"
+              />
+            </div>
+            <div class="input_groupcs">
+              <i class="fa fa-unlock-alt"></i>
+              <input
+                type="password"
+                placeholder="Password"
+                class="input_textcs"
+                // onChange={event => setPassword(event.target.value)}
+                {...register("password")}
+                autocomplete="off"
+              />
+            </div>
+            <div class="button_group" id="login_buttoncs">
+              <button 
+              type="submit"
+              
+              >Submit</button>
+            </div>
+            <div class="fottercs">
+              <a>Forgot Password ?</a>
+              <a>SingUp</a>
+            </div>
+          </div>
         </div>
-        <div class="input_groupcs">
-          <i class="fa fa-unlock-alt"></i>
-          <input
-            type="password"
-            placeholder="Password"
-            class="input_textcs"
-            onChange={event => setPassword(event.target.value)}
-            autocomplete="off"
-          />
-        </div>
-        <div class="button_group" id="login_buttoncs">
-          <a  onClick={handleSubmit} >Submit</a>
-        </div>
-        <div class="fottercs">
-          <a>Forgot Password ?</a>
-          <a>SingUp</a>
-        </div>
-      </div>
+      </form>
     </div>
-
-    </div>
-        </div>
-    );
+  );
 };
 
 export default FLogin;
