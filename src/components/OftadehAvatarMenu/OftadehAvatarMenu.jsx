@@ -23,6 +23,7 @@ import OftadehAvatarBadge from "../OftadehAvatarBadge/OftadehAvatarBadge";
 import { AccountCircle, Settings, ExitToApp } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../store/authentication";
+import { getStoreInfo } from "../../store/storeUserInfo";
 // import { logout } from "../../store/authentication";
 
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +64,7 @@ const dispatch = useDispatch()
   const logoutfunctioncall = () =>{
 
     console.log("hit log out")
+
     dispatch(logoutUser())
     history.push("/");
   } 
@@ -87,7 +89,7 @@ const dispatch = useDispatch()
             variant="dot"
           >
             <Avatar
-              alt="Suraj"
+              alt="image"
               src="https://lh5.googleusercontent.com/-WqhFe4eMggE/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rdFUa5CK9Wi6g5qd8ZUt6apKFYSwA/photo.jpg?sz=328"
             />
           </OftadehAvatarBadge>
@@ -97,7 +99,8 @@ const dispatch = useDispatch()
             primary={
               <React.Fragment>
                 <Typography component="span" variant="subtitle2">
-                David Miller
+                {/* David Miller */}
+                {getStoreInfo().userName}
                 </Typography>
               </React.Fragment>
             }
@@ -146,8 +149,8 @@ const dispatch = useDispatch()
                     </Link>
                   </MenuItem>
 
-                  <MenuItem >
-                    <ListItemIcon className={classes.menuIcon}>
+                  <MenuItem  onClick ={()=> logoutfunctioncall()} >
+                    <ListItemIcon  onClick ={()=> logoutfunctioncall()} className={classes.menuIcon}>
                       <ExitToApp fontSize="small" />
                     </ListItemIcon>
                     <a
