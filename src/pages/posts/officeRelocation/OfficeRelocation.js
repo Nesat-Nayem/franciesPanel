@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import OftadehLayout from "../../../components/OftadehLayout/OftadehLayout";
 import OftadehBreadcrumbs from "../../../components/OftadehBreadcrumbs/OftadehBreadcrumbs";
 import { Typography, Grid, Button, makeStyles } from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { spacificService } from "../../../store/services";
+import { getStoreInfo } from "../../../store/storeUserInfo";
 
 const useStyles = makeStyles((theme) => ({
   my3: {
@@ -28,42 +32,48 @@ const columns = [
       sort: true,
     },
   },
+
   {
-    name: "Moving_From",
-    label: "Moving-From",
+    name: "movers_packers.from.city",
+    label: "Moving From",
     options: {
+      customBodyRender: (value) => value, // value is the city name
       filter: true,
       sort: false,
-    },
+    }
   },
   {
-    name: "Number",
+    name: "movers_packers.from.contact_no",
     label: "Contact",
     options: {
+      customBodyRender:(value) =>value,
       filter: true,
       sort: false,
     },
   },
   {
-    name: "Address",
+    name: "movers_packers.from.address",
     label: "Address",
     options: {
+      customBodyRender:(value) =>value,
       filter: true,
       sort: true,
     },
   },
   {
-    name: "floor_no",
+    name: "movers_packers.from.floor_no",
     label: "Floor No",
     options: {
+      customBodyRender:(value) =>value,
       filter: true,
       sort: true,
     },
   },
   {
-    name: "service_lift",
+    name: "movers_packers.from.has_service_lift",
     label: " service-lift",
     options: {
+      customBodyRender:(value) =>value.toString(),
       filter: true,
       sort: true,
     },
@@ -72,50 +82,26 @@ const columns = [
     name: "details",
     label: "Details",
     options: {
+      customBodyRender: (value) => (
+        <Button
+          variant="outlined"
+          size="small"
+          color="primary"
+          onClick={() => {
+            // open details page here
+          }}
+        >
+          View
+        </Button>
+      ),
       filter: true,
       sort: false,
     },
   },
 ];
 
-const data = [
-  {
-    id: "65a85f12h78y998y556c...",
-    Moving_From: "surat",
-    Number: "9876543210",
-    Address: "Ahmadabad",
-    floor_no: "34",
-    service_lift: "True",
-    details: [<Button variant="light">view</Button>],
-  },
-  {
-    id: "65a85f12h78y998y556c...",
-    Moving_From: "surat",
-    Number: "9876543210",
-    Address: "Ahmadabad",
-    floor_no: "34",
-    service_lift: "True",
-    details: [<Button variant="light">view</Button>],
-  },
-  {
-    id: "65a85f12h78y998y556c...",
-    Moving_From: "surat",
-    Number: "9876543210",
-    Address: "Ahmadabad",
-    floor_no: "34",
-    service_lift: "True",
-    details: [<Button variant="light">view</Button>],
-  },
-  {
-    id: "65a85f12h78y998y556c...",
-    Moving_From: "surat",
-    Number: "9876543210",
-    Address: "Ahmadabad",
-    floor_no: "34",
-    service_lift: "True",
-    details: [<Button variant="light">view</Button>],
-  },
-];
+
+
 
 const options = {
   filterType: "checkbox",
@@ -124,6 +110,17 @@ const options = {
 const OfficeRelocation = (props) => {
   const { history } = props;
   const classNamees = useStyles();
+
+  const office = useSelector((state) => state.services.Sservice)
+  const reload = useSelector((state)=> state.services.reload)
+
+
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(spacificService(`office_relocate&francies_id=${getStoreInfo()._id}`))
+  },[reload])
 
   return (
     <OftadehLayout>
@@ -137,7 +134,7 @@ const OfficeRelocation = (props) => {
       <OftadehBreadcrumbs path={history} />
       <MUIDataTable
         title={" Office Relocation "}
-        data={data}
+        data={office}
         columns={columns}
         options={options}
       />

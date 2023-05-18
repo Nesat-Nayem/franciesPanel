@@ -31,14 +31,7 @@ const columns = [
       sort: true,
     },
   },
-  // {
-  //   name: "Moving_From",
-  //   label: "Moving-From",
-  //   options: {
-  //     filter: true,
-  //     sort: false,
-  //   },
-  // },
+
   {
     name: "movers_packers.from.city",
     label: "Moving From",
@@ -161,7 +154,7 @@ const HomeRelocation = (props) => {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(spacificService(`office_relocate&francies_id=${getStoreInfo()._id}`))
+    dispatch(spacificService(`home_relocate&francies_id=${getStoreInfo()._id}`))
   },[reload])
 
   return (

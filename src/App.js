@@ -4,6 +4,7 @@ import OftadehRoutes from "./components/OftadehRoutes/OftadehRoutes";
 import { ThemeProvider } from "@material-ui/core/styles";
 import getTheme from "./oftadeh-configs/themeConfig";
 import ThemeContext from "./context/ThemeContext";
+// import PrivateRoute from "./pages/PrivateRoute/PrivateRoute";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import './bootstrap/dist/css/bootstrap.min.css';
 
@@ -25,7 +26,9 @@ const App = () => {
     <ThemeContext.Provider value={{ setThemeName, curThemeName }}>
       <ThemeProvider theme={theme}>
         <div className="App">
+          {/* <PrivateRoute> */}
           <OftadehRoutes />
+          {/* </PrivateRoute> */}
         </div>
       </ThemeProvider>
     </ThemeContext.Provider>
