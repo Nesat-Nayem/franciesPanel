@@ -4,9 +4,11 @@ import { Paper, Grid, makeStyles, Button } from "@material-ui/core";
 
 import MUIDataTable from "mui-datatables";
 import "../../components/css/dashboard.css";
+// import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
+// import Popup from 'reactjs-popup';
+// import 'reactjs-popup/dist/index.css';
 
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
@@ -195,7 +197,7 @@ const DashboardPage = (props) => {
   const [orderDetails, setOrderDetails] = useState({});
   console.log("modal test from backend ", orderDetails)
 
-  const socket = io('http://localhost:7070')
+  const socket = io('http://trans23server-env.eba-q3as37ty.ap-south-1.elasticbeanstalk.com')
 
   const currentUserFranchiseId = getStoreInfo()?._id
   console.log("current francies id", currentUserFranchiseId)
@@ -215,24 +217,13 @@ const DashboardPage = (props) => {
     };
   }, []);
 
-  // const handleResponse = (accepted) => {
-  //   socket.emit(`response-${orderDetails.franchiseId}`, { accepted });
-  //   console.log('Accepted:', accepted);
-  //   setShowModal(false);
-  // };
-
-  // console.log("client order id", orderDetails.franchiseId)
+ 
   const handleResponse = (accepted) => {
     socket.emit(`response-${orderDetails.franchiseId}`, { accepted });
     console.log(`response-${orderDetails.franchiseId}`, { accepted });
     setShowModal(false);
   };
 
-  // const handleResponse = (accepted) => {
-  //   console.log(`Emitting response`, { accepted, franchiseId: orderDetails.franchiseId });
-  //   socket.emit('response', { accepted, franchiseId: orderDetails.franchiseId });
-  //   setShowModal(false);
-  // };
 
 
   const { history } = props;
@@ -240,43 +231,94 @@ const DashboardPage = (props) => {
 
   return (
     <OftadehLayout>
-      {/* <h1>Dashboard</h1> */}
       <main class="main-content position-relative max-height-vh-100 mt-5 h-100 border-radius-lg">
-        {/* {showModal && (
-      <div className="modal">
-        <h2>New Order</h2>
-        <p>{orderDetails.message}</p>
-        <button onClick={() => handleResponse(true)}>Accept</button>
-        <button onClick={() => handleResponse(false)}>Decline</button>
+ 
+      
+
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header >
+          <Modal.Title>{orderDetails.heading}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Order ID: {orderDetails.id}</p>
+          <p>Service: {orderDetails.service}</p>
+          <p>Created at: {orderDetails.createat}</p>
+        </Modal.Body>
+        <div className="d-flex justify-content-end">
+          <Button className="me-3" variant="outlined" color="primary" onClick={() => handleResponse(true)}>Accept</Button>
+          <Button variant="outlined" color="secondary" onClick={() => handleResponse(false)}>Decline</Button>
+        </div>
+
+<div class="modal fade"   >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Your cart</h4>
+        <button type="button" class="close" >
+          <span >×</span>
+        </button>
       </div>
-    )} */}
+      <div class="modal-body">
 
-        <Popup
-          open={showModal}
-          onClose={() => setShowModal(false)}
-          modal
-          closeOnDocumentClick
-        >
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product name</th>
+              <th>Price</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Product 1</td>
+              <td>100$</td>
+              <td><a><i class="fas fa-times"></i></a></td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Product 2</td>
+              <td>100$</td>
+              <td><a><i class="fas fa-times"></i></a></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Product 3</td>
+              <td>100$</td>
+              <td><a><i class="fas fa-times"></i></a></td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Product 4</td>
+              <td>100$</td>
+              <td><a><i class="fas fa-times"></i></a></td>
+            </tr>
+            <tr class="total">
+              <th scope="row">5</th>
+              <td>Total</td>
+              <td>400$</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
 
-          <div className="modal-content">
-            <div className="modal-header">
-              <h2>{orderDetails.heading}</h2>
-            </div>
-            <div className="modal-body">
-              <p>Order ID: {orderDetails.id}</p>
-              <p>Service: {orderDetails.service}</p>
-              {/* <p>Franchise ID: {orderDetails.franchiseId}</p> */}
-              <p>Created at: {orderDetails.createat}</p>
-              {/* <p>Message: {orderDetails.message}</p> */}
-              {/* <p>Accept Duration: you need to accept under 10 secund </p> */}
-            </div>
-            <div className="modal-footer">
-              <button onClick={() => handleResponse(true)}>Accept</button>
-              <button onClick={() => handleResponse(false)}>Decline</button>
-            </div>
-          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" >Close</button>
+        <button class="btn btn-primary">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-        </Popup>
+
+
+
+      </Modal>
+
+
+
 
         <div class="container-fluid py-4">
           <div class="row">

@@ -1,0 +1,13 @@
+/* Custom CSS file */
+.custom-btn {
+    border: 2px solid purple;
+    color: purple;
+    background-color: transparent;
+  }
+  
+  .custom-btn:hover {
+    border-color: white;
+    color: white;
+    transition: all 0.5s;
+  }
+  

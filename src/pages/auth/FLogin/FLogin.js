@@ -79,7 +79,7 @@ const FLogin = () => {
   //   dispatch(postauth(data))
 
   //   // axios
-  //   // .post("http://localhost:7070/api/franciesSingIn", data)
+  //   // .post("http://trans23server-env.eba-q3as37ty.ap-south-1.elasticbeanstalk.com/api/franciesSingIn", data)
   //   // .then((response) => {
   //   //   // dispatch(signin(response.data));
   //   //   // console.log(response.data.service)
