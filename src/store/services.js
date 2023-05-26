@@ -114,7 +114,7 @@ export const loadservicess = () =>
 
 export const spacificService = (data) =>
   apiCallBegan({
-    url: `/api/orders?type=${data}`,
+    url: `/api/orders?${data}`,
     onStart: spacificServicesRequested.type,
     onSuccess: spacificServicesSucceeded.type,
     onFailed: spacificServicesFailed.type,

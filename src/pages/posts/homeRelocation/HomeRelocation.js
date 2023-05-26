@@ -149,12 +149,12 @@ const HomeRelocation = (props) => {
   const home = useSelector((state) => state.services.Sservice)
   const reload = useSelector((state)=> state.services.reload)
 
-
+console.log("data test", home)
 
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(spacificService(`home_relocate&francies_id=${getStoreInfo()._id}`))
+    dispatch(spacificService(`type=home_relocate&francies_id=${getStoreInfo()._id}`))
   },[reload])
 
   return (

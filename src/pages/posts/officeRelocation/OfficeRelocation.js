@@ -119,7 +119,7 @@ const OfficeRelocation = (props) => {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(spacificService(`office_relocate&francies_id=${getStoreInfo()._id}`))
+    dispatch(spacificService(`type=office_relocate&francies_id=${getStoreInfo()._id}`))
   },[reload])
 
   return (

@@ -15,6 +15,8 @@ import io from 'socket.io-client';
 import { getStoreInfo } from "../../store/storeUserInfo";
 
 import './ModalStyles.css';
+import { loadservicess, spacificService } from "../../store/services";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const useStyles = makeStyles((them) => ({
@@ -193,14 +195,14 @@ const options1 = {
 const DashboardPage = (props) => {
 
   const [showModal, setShowModal] = useState(false);
-  console.log("get francies data initial false", showModal)
+  // console.log("get francies data initial false", showModal)
   const [orderDetails, setOrderDetails] = useState({});
-  console.log("modal test from backend ", orderDetails)
+  // console.log("modal test from backend ", orderDetails)
 
-  const socket = io('http://trans23server-env.eba-q3as37ty.ap-south-1.elasticbeanstalk.com')
+  const socket = io('http://localhost:7070')
 
   const currentUserFranchiseId = getStoreInfo()?._id
-  console.log("current francies id", currentUserFranchiseId)
+  // console.log("current francies id", currentUserFranchiseId)
 
   useEffect(() => {
     socket.on('hello', (data) => {
@@ -226,8 +228,69 @@ const DashboardPage = (props) => {
 
 
 
-  const { history } = props;
-  const classes = useStyles();
+  // const { history } = props;
+  // const classes = useStyles();
+
+
+  // dashboard staticts 
+
+  const services = useSelector((state) => state.services.Sservice)
+  const reload = useSelector((state)=> state.services.reload)
+  console.log("check state ", reload)
+
+console.log("data test from main", services)
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(spacificService(`francies_id=${getStoreInfo()._id}`))
+  },[reload,showModal])
+
+
+  // dynamic counting 
+
+  // const countTodayServices = services.map((data)=>data.createdAt)
+
+  // console.log("ravinue count", countTodayServices)
+
+  // count today
+  const today = new Date();
+  const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+  
+  const servicesToday = services.filter(service => {
+    const createdAt = new Date(service.createdAt);
+    return createdAt >= startOfDay && createdAt < endOfDay;
+  });
+  
+  const totalTodayServices = servicesToday.length;
+  // console.log("today today", totalTodayServices)
+
+  console.log("first one", totalTodayServices)
+  
+  // count today
+
+  const userStatusCount = services.map((data)=>data.status);
+
+  const userRavinueCount = services.map((data)=>data.transaction);
+
+const totalAmount = userRavinueCount.reduce((acc, curr) => {
+  const transactionAmounts = curr.map((transaction) => transaction.amount);
+  return acc + transactionAmounts.reduce((sum, amount) => sum + amount, 0);
+}, 0);
+
+console.log("total amount", totalAmount )
+
+
+  const completedCount = userStatusCount.filter((status) => status === "completed").length;
+  const pendingCount = userStatusCount.filter((status) => status !== "completed").length;
+
+  console.log("completedwork", completedCount )
+  console.log("pendingwork", pendingCount)
+
+
+
+  // dashboard staticts 
 
   return (
     <OftadehLayout>
@@ -246,7 +309,7 @@ const DashboardPage = (props) => {
         </Modal.Body>
         <div className="d-flex justify-content-end">
           <Button className="me-3" variant="outlined" color="primary" onClick={() => handleResponse(true)}>Accept</Button>
-          <Button variant="outlined" color="secondary" onClick={() => handleResponse(false)}>Decline</Button>
+          <Button variant="outlined" color="secondary" onClick={() => setShowModal(false)}>Decline</Button>
         </div>
 
 <div class="modal fade"   >
@@ -326,11 +389,12 @@ const DashboardPage = (props) => {
               <div class="card">
                 <div class="card-header p-3 pt-2">
                   <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">weekend</i>
+                    <i class="material-icons opacity-10">calendar_view_day</i>
                   </div>
                   <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                    <h4 class="mb-0">$53k</h4>
+                    <p class="text-sm mb-0 text-capitalize">Today Inquiry</p>
+                    {/* <h4 class="mb-0">$53k</h4> */}
+                    <h4 class="mb-0">{totalTodayServices}</h4>
                   </div>
                 </div>
                 <hr class="dark horizontal my-0" />
@@ -348,11 +412,12 @@ const DashboardPage = (props) => {
               <div class="card">
                 <div class="card-header p-3 pt-2">
                   <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">person</i>
+                    <i class="material-icons opacity-10">done_all</i>
                   </div>
                   <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                    <h4 class="mb-0">2,300</h4>
+                    <p class="text-sm mb-0 text-capitalize">Complete Work</p>
+                    {/* <h4 class="mb-0">2,300</h4> */}
+                    <h4 class="mb-0">{completedCount}</h4>
                   </div>
                 </div>
                 <hr class="dark horizontal my-0" />
@@ -370,11 +435,12 @@ const DashboardPage = (props) => {
               <div class="card">
                 <div class="card-header p-3 pt-2">
                   <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">person</i>
+                    <i class="material-icons opacity-10">restart_alt</i>
                   </div>
                   <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                    <h4 class="mb-0">3,462</h4>
+                    <p class="text-sm mb-0 text-capitalize">Pending Work</p>
+                    {/* <h4 class="mb-0">3,462</h4> */}
+                    <h4 class="mb-0">{pendingCount}</h4>
                   </div>
                 </div>
                 <hr class="dark horizontal my-0" />
@@ -392,11 +458,11 @@ const DashboardPage = (props) => {
               <div class="card">
                 <div class="card-header p-3 pt-2">
                   <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">weekend</i>
+                    <i class="material-icons opacity-10">insights</i>
                   </div>
                   <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Sales</p>
-                    <h4 class="mb-0">$103,430</h4>
+                    <p class="text-sm mb-0 text-capitalize">Revenue</p>
+                    <h4 class="mb-0">{totalAmount}</h4>
                   </div>
                 </div>
                 <hr class="dark horizontal my-0" />

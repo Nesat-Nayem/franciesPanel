@@ -18,8 +18,8 @@ const api =
 
     try {
       const response = await axios.request({
-        // baseURL: "http://trans23server-env.eba-q3as37ty.ap-south-1.elasticbeanstalk.com",
-        baseURL: "http://trans23server-env.eba-q3as37ty.ap-south-1.elasticbeanstalk.com",
+        // baseURL: "http://localhost:7070",
+        baseURL: "http://localhost:7070",
         url,
         method,
         data,
