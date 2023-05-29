@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import OftadehLayout from "../../../components/OftadehLayout/OftadehLayout";
 import OftadehBreadcrumbs from "../../../components/OftadehBreadcrumbs/OftadehBreadcrumbs";
 import { Typography, Grid, Button, makeStyles } from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
+import { spacificService } from "../../../store/services";
+import { getStoreInfo } from "../../../store/storeUserInfo";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   my3: {
@@ -21,32 +26,36 @@ const useStyles = makeStyles((theme) => ({
 
 const columns = [
   {
-    name: "customer_name",
+    name: "user.name",
     label: "Customer Name",
     options: {
+      customBodyRender: (value) => value, 
       filter: true,
       sort: false,
     },
   },
   {
-    name: "date",
+    name: "createdAt",
     label: "Date",
     options: {
-      filter: true,
-      sort: false,
+    filter: true,
+    sort: false,
+    customBodyRender: (value) => moment(value).format("MMM Do YY")
     },
-  },
+    },
+   
+   
   {
-    name: "Category",
-    label: "Category",
+    name: "service",
+    label: "Service",
     options: {
       filter: true,
       sort: true,
     },
   },
   {
-    name: "token_amount",
-    label: "Token Amount",
+    name: "payment_details.total_amount",
+    label: "Total Amount",
     options: {
       filter: true,
       sort: true,
@@ -89,6 +98,19 @@ const Report = (props) => {
   const { history } = props;
   const classNamees = useStyles();
 
+  
+  const services = useSelector((state) => state.services.Sservice)
+  const reload = useSelector((state)=> state.services.reload)
+  // console.log("check state ", reload)
+
+console.log("data test from report area", services)
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(spacificService(`francies_id=${getStoreInfo()._id}`))
+  },[reload])
+
   return (
     <OftadehLayout>
       <Grid container className={classNamees.my3} alignItems="center">
@@ -101,7 +123,7 @@ const Report = (props) => {
       <OftadehBreadcrumbs path={history} />
       <MUIDataTable
         title={" Report "}
-        data={data}
+        data={services}
         columns={columns}
         options={options}
       />

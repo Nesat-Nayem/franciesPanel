@@ -236,9 +236,9 @@ const DashboardPage = (props) => {
 
   const services = useSelector((state) => state.services.Sservice)
   const reload = useSelector((state)=> state.services.reload)
-  console.log("check state ", reload)
+  // console.log("check state ", reload)
 
-console.log("data test from main", services)
+// console.log("data test from main", services)
 
   const dispatch = useDispatch()
 
