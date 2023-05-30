@@ -136,7 +136,7 @@ const OftadehAppBar = (props) => {
         </div> */}
         <div className={classes.grow} />
         <div className={classes.appbarSection}>
-          <IconButton
+          {/* <IconButton
             aria-haspopup="true"
             onClick={() =>
               curThemeName === "dark"
@@ -150,8 +150,8 @@ const OftadehAppBar = (props) => {
             ) : (
               <Brightness4Icon />
             )}
-          </IconButton>
-          <div className={classes.appbarToday}>
+          </IconButton> */}
+          {/* <div className={classes.appbarToday}>
             <IconButton
               aria-haspopup="true"
               onClick={(event) => handleRightPanelOpen(event, 0)}
@@ -159,8 +159,8 @@ const OftadehAppBar = (props) => {
             >
               <BsGearFill />
             </IconButton>
-          </div>
-          <IconButton
+          </div> */}
+          {/* <IconButton
             aria-haspopup="true"
             onClick={(event) => handleRightPanelOpen(event, 1)}
             aria-label="show 17 new notifications"
@@ -169,7 +169,7 @@ const OftadehAppBar = (props) => {
             <Badge badgeContent={17} color="secondary">
               <NotificationsIcon />
             </Badge>
-          </IconButton>
+          </IconButton> */}
           <OftadehAvatarMenu />
         </div>
       </Toolbar>
