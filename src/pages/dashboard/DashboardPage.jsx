@@ -207,6 +207,7 @@ const DashboardPage = (props) => {
   useEffect(() => {
     socket.on('hello', (data) => {
       // Check if the notification is for the current user
+      console.log("francies id check", data.franchiseId)
       if (data.franchiseId === currentUserFranchiseId) {
         setOrderDetails(data);
         setShowModal(true);
@@ -222,7 +223,7 @@ const DashboardPage = (props) => {
  
   const handleResponse = (accepted) => {
     socket.emit(`response-${orderDetails.franchiseId}`, { accepted });
-    console.log(`response-${orderDetails.franchiseId}`, { accepted });
+    // console.log(`response-${orderDetails.franchiseId}`, { accepted });
     setShowModal(false);
   };
 
@@ -266,7 +267,7 @@ const DashboardPage = (props) => {
   const totalTodayServices = servicesToday.length;
   // console.log("today today", totalTodayServices)
 
-  console.log("first one", totalTodayServices)
+  // console.log("first one", totalTodayServices)
   
   // count today
 
@@ -279,14 +280,14 @@ const totalAmount = userRavinueCount.reduce((acc, curr) => {
   return acc + transactionAmounts.reduce((sum, amount) => sum + amount, 0);
 }, 0);
 
-console.log("total amount", totalAmount )
+// console.log("total amount", totalAmount )
 
 
   const completedCount = userStatusCount.filter((status) => status === "completed").length;
   const pendingCount = userStatusCount.filter((status) => status !== "completed").length;
 
-  console.log("completedwork", completedCount )
-  console.log("pendingwork", pendingCount)
+  // console.log("completedwork", completedCount )
+  // console.log("pendingwork", pendingCount)
 
 
 
